@@ -1,0 +1,101 @@
+﻿<Window x:Class="FPT_Room_Booking_System.Views.ListRoomWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FPT_Room_Booking_System.Views"
+        mc:Ignorable="d"
+        FontFamily="Nunito"
+        WindowStartupLocation="CenterScreen"
+        Title="Avaible Room" Height="800" Width="900">
+    
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" Background="White">
+                            <ScrollViewer Margin="2" x:Name="PART_ContentHost" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="DarkOrange" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="0.5*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Background="DarkRed">
+            <Image HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24" Source="D:\FPT\FPT Fall 2024\PRN221\Assignment\FPT_Room_Booking_System\FPT_Room_Booking_System\Assets\FPT_Education_logo.svg.png"></Image>
+            <Label Grid.Row="0" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="7" FontWeight="Bold" FontSize="28">Find Avaible Room Today</Label>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="13*"/>
+            </Grid.RowDefinitions>
+
+            <Button Command="{Binding BtnBackCommand}" Grid.Row="0" HorizontalAlignment="Left" Margin="20 10 10 10" Width="60">Back</Button>
+
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding BtnRoomType}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel  Grid.Row="2" Orientation="Horizontal" Margin="20 0 20 0" HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding TypeName}" 
+                                Width="120"
+                                Margin="10 5 5 10"
+                                HorizontalAlignment="Stretch"
+                                Background="#B80707"
+                                Command="{Binding DataContext.SelectRoomTypeCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                CommandParameter="{Binding}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Grid Grid.Row="2">
+                <ItemsControl ItemsSource="{Binding BtnRoom}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding RoomName}"
+                                    Margin="20" Height="70" Width="70" FontSize="17" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                    Background="Green"
+                                    Command="{Binding DataContext.SelectRoomCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                    CommandParameter="{Binding}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

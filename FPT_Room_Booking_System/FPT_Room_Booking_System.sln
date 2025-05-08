@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPT_Room_Booking_System", "FPT_Room_Booking_System\FPT_Room_Booking_System.csproj", "{96ECDB3C-0A25-4686-A2DD-C40982EB28F1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96ECDB3C-0A25-4686-A2DD-C40982EB28F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96ECDB3C-0A25-4686-A2DD-C40982EB28F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96ECDB3C-0A25-4686-A2DD-C40982EB28F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96ECDB3C-0A25-4686-A2DD-C40982EB28F1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {354001BA-0C64-4636-98CC-6B6DB771565F}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,124 @@
+﻿<Window x:Class="FPT_Room_Booking_System.Views.RoomDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FPT_Room_Booking_System.Views"
+        mc:Ignorable="d"
+        FontFamily="Nunito"
+        WindowStartupLocation="CenterScreen"
+        Title="Room's Details" Height="800" Width="900">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" Background="White">
+                            <ScrollViewer Margin="2" x:Name="PART_ContentHost" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="DarkOrange" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="0.5*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Background="DarkRed">
+            <Image HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24" Source="D:\FPT\FPT Fall 2024\PRN221\Assignment\FPT_Room_Booking_System\FPT_Room_Booking_System\Assets\FPT_Education_logo.svg.png"/>
+            <TextBlock Grid.Row="0" Foreground="White" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="7"> 
+            <Run Text="{Binding RoomName}" />
+            <Run Text="'s Booking" />
+            </TextBlock>
+
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="13*"/>
+            </Grid.RowDefinitions>
+
+            <Button Command="{Binding BtnBackCommand}" Grid.Row="0" HorizontalAlignment="Left" Margin="20 10 10 10" Width="60">Back</Button>
+
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <Label FontSize="13" FontWeight="Bold">Booking's Date:</Label>
+                <DatePicker Width="150" SelectedDate="{Binding BookingDate, Mode=TwoWay}"/>
+            </StackPanel>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <DataGrid HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding RoomBookings}" AutoGenerateColumns="False" Margin="20">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="100" Header="Booking ID" Binding="{Binding BookingId}" />
+                        <DataGridTextColumn Width="100" Header="Start Time" Binding="{Binding SlotNavigation.StartTime, StringFormat='{}{0:hh\\:mm}'}" />
+                        <DataGridTextColumn Width="100" Header="End Time" Binding="{Binding SlotNavigation.EndTime, StringFormat='{}{0:hh\\:mm}'}" />
+                        <DataGridTextColumn Width="100" Header="Status" Binding="{Binding Status}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <StackPanel Grid.Column="1" Margin="20">
+                    <Label Margin="0 0 0 15" FontWeight="Bold">Room's Information</Label>
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                        <Label Content="Department:"/>
+                        <TextBlock Margin="10 0 0 0" VerticalAlignment="Center" Text="{Binding DepartmentName}" FontWeight="Normal"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                        <Label Content="Room Name:"/>
+                        <TextBlock Margin="10 0 0 0" VerticalAlignment="Center" Text="{Binding RoomName}" FontWeight="Normal"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                        <Label Content="Room Type:"/>
+                        <TextBlock Margin="10 0 0 0" VerticalAlignment="Center" Text="{Binding RoomType}" FontWeight="Normal"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                        <Label Content="Capacity:"/>
+                        <TextBlock Margin="10 0 0 0" VerticalAlignment="Center" Text="{Binding Capacity}" FontWeight="Normal"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                        <Label Content="Projector:"/>
+                        <TextBlock Margin="10 0 0 0" VerticalAlignment="Center" Text="{Binding Projector}" FontWeight="Normal"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Margin="20">
+                    <Label Margin="0 0 0 15" FontWeight="Bold">Book a slot</Label>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Margin="0 0 0 10">Slot:</Label>
+                        <ComboBox ItemsSource="{Binding AllSlot}" 
+                                  Width="137" Margin="10 0 0 10"
+                                    SelectedItem="{Binding SelectedSlot, Mode=TwoWay}" 
+                                    DisplayMemberPath="DisplayValue" />
+                    </StackPanel>
+                    <Button FontSize="15" FontWeight="Bold" Height="25" Command="{Binding RequestBookingCommand}">Request</Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

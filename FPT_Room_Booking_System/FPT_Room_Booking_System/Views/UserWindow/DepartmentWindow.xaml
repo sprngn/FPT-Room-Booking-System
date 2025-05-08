@@ -1,0 +1,113 @@
+﻿<Window x:Class="FPT_Room_Booking_System.Views.DepartmentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FPT_Room_Booking_System.Views"
+        mc:Ignorable="d"
+        FontFamily="Nunito"
+        Background="White"
+        WindowStartupLocation="CenterScreen"
+        Title="Home Page" Height="800" Width="900">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" Background="White">
+                            <ScrollViewer Margin="2" x:Name="PART_ContentHost" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="DarkOrange" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="0.5*"/>
+        </Grid.RowDefinitions>
+        <Grid Background="DarkRed">
+            <Image HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24" Source="D:\FPT\FPT Fall 2024\PRN221\Assignment\FPT_Room_Booking_System\FPT_Room_Booking_System\Assets\FPT_Education_logo.svg.png"></Image>
+            <Button Command="{Binding LogOutCommand}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Width="70" Height="25" Foreground="Black" Background="White">Log out</Button>
+            <Label Grid.Row="0" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="7" FontWeight="Bold" FontSize="28">Welcome to FPT Room Booking System</Label>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,50,10,0"
+        Width="120" Height="25" Foreground="Black" Background="White" 
+        Content="Request List" Command="{Binding RequestListCommand}"
+        Visibility="{Binding IsManager, Converter={StaticResource BoolToVisibilityConverter}}" />
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="9*"/>
+            </Grid.RowDefinitions>
+
+            <Label HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" FontSize="18">Book a room today</Label>
+            <Button Command="{Binding MyBookingCommand}" Margin="25 0 0 0" Width="90" Height="25" HorizontalAlignment="Left">My Booking</Button>
+            <Label HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" FontSize="18">Or</Label>
+
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding BtnDepartments}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="2" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding DepartmentName}" 
+                    Margin="10" 
+                    FontSize="20" 
+                    FontWeight="Bold"
+                    Command="{Binding DataContext.SelectDepartmentCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                    CommandParameter="{Binding}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" FontSize="18">Find avaible room</Label>
+
+            <Grid Grid.Row="1" Grid.Column="1" Margin="5 0 0 0">
+                <StackPanel Margin="5">
+                    <Label Margin="5">Booking date:</Label>
+                    <DatePicker SelectedDate="{Binding SelectedBookDate, Mode=TwoWay}" Margin="5 0 70 5"></DatePicker>
+                    <UniformGrid Columns="2" Rows="2">
+                        <Label Margin="5">From:</Label>
+                        <Label Margin="5">To:</Label>
+                        <ComboBox DisplayMemberPath="StartTime" ItemsSource="{Binding SlotTime}" SelectedItem="{Binding SelectedStartTime}" Margin="5 0 30 13"></ComboBox>
+                        <ComboBox DisplayMemberPath="EndTime" ItemsSource="{Binding SlotTime}" SelectedItem="{Binding SelectedEndTime}" Margin="5 0 30 13"></ComboBox>
+                    </UniformGrid>
+                    <Label Margin="5">Department:</Label>
+                    <ComboBox DisplayMemberPath="DepartmentName" ItemsSource="{Binding CbDepartments}" SelectedItem="{Binding SelectedCbDepartment}" Margin="5 0 80 10"></ComboBox>
+                    <Label Margin="5">Room Type:</Label>
+                    <ComboBox DisplayMemberPath="TypeName" ItemsSource="{Binding RoomType}" SelectedItem="{Binding SelectedRoomType}" Margin="5 0 80 0"></ComboBox>
+                    <Button Command="{Binding FindCommand}" FontSize="16" Margin="25" Width="100" Height="25" HorizontalAlignment="Right">Find</Button>
+
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
